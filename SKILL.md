@@ -193,7 +193,8 @@ pandoc project.lit.md \
   --pdf-engine=xelatex \
   --filter mermaid-filter \
   --toc \
-  --number-sections
+  --number-sections \
+  -V geometry:margin=1.5cm
 ```
 
 For setup instructions, see `references/pandoc-setup.md`.

@@ -4,10 +4,7 @@ author: "Author Name"
 date: \today
 documentclass: article
 geometry:
-  - left=0.75in
-  - right=1in
-  - top=1in
-  - bottom=1in
+  - margin=1.5cm
 fontsize: 11pt
 mainfont: "Linux Libertine O"
 monofont: "Fira Code"

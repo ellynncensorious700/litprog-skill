@@ -27,7 +27,7 @@ bun run scripts/tangle.ts <file.lit.md> --output-dir <dir> --verify
 bun run scripts/untangle.ts <changed-file> [--lit-map <path>] [--weave]
 
 # Weave: generate PDF from a literate program (requires pandoc + xelatex + mermaid-filter)
-pandoc project.lit.md -o project.pdf --pdf-engine=xelatex --filter mermaid-filter --toc --number-sections
+pandoc project.lit.md -o project.pdf --pdf-engine=xelatex --filter mermaid-filter --toc --number-sections -V geometry:margin=1.5cm
 ```
 
 There are no tests, linter, or build steps for this repo itself.
