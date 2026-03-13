@@ -71,11 +71,13 @@ Look for event loops, worker threads, scheduled tasks, signal handlers, and mess
 
 ### Step 4: Plan Diagrams
 
-Choose Mermaid diagrams to illustrate the architecture before showing code:
+Choose diagrams to illustrate the architecture before showing code:
 - Module dependencies → `graph TD`
 - Request lifecycle → `sequenceDiagram`
 - Data pipeline → `graph LR`
 - State machines → `stateDiagram-v2`
+
+Check `which mermaid-filter` first. If available, write these as ` ```mermaid ` blocks. If not, write them as TikZ `{=latex}` raw blocks (see TikZ section in Writing the .lit.md).
 
 Place each diagram *before* the code it describes.
 
@@ -163,6 +165,68 @@ graph LR
 ```
 ````
 
+### TikZ (when mermaid-filter is unavailable)
+
+If `which mermaid-filter` returns nothing, use TikZ instead. TikZ diagrams are raw LaTeX embedded via pandoc raw blocks:
+
+````markdown
+```{=latex}
+\begin{tikzpicture}[...]
+  ...
+\end{tikzpicture}
+```
+````
+
+These are invisible in Markdown preview but render correctly in the PDF.
+
+**Translation patterns:**
+
+`graph LR` / `graph TD` → `tikzpicture` with `shapes,arrows` library:
+
+````markdown
+```{=latex}
+\begin{tikzpicture}[node distance=2cm, auto,
+  block/.style={rectangle, draw, text width=4em, text centered, minimum height=2em},
+  line/.style={draw, -latex}]
+  \node [block] (A) {Input};
+  \node [block, right of=A] (B) {Parse};
+  \node [block, right of=B] (C) {Transform};
+  \node [block, right of=C] (D) {Output};
+  \path [line] (A) -- (B);
+  \path [line] (B) -- (C);
+  \path [line] (C) -- (D);
+\end{tikzpicture}
+```
+````
+
+`sequenceDiagram` → manual x/y placement (or use `pgf-umlsd` if available):
+
+````markdown
+```{=latex}
+\begin{tikzpicture}
+  \node at (0,0) {Client};
+  \node at (4,0) {Server};
+  \draw[->] (0.3,-0.5) -- node[above]{\small Request} (3.7,-0.5);
+  \draw[->] (3.7,-1.2) -- node[above]{\small Response} (0.3,-1.2);
+\end{tikzpicture}
+```
+````
+
+`stateDiagram-v2` → `automata` library:
+
+````markdown
+```{=latex}
+\begin{tikzpicture}[shorten >=1pt, node distance=3cm, on grid, auto,
+  state/.style={circle, draw, minimum size=1.5cm}]
+  \node [state, initial] (idle) {Idle};
+  \node [state, right of=idle] (running) {Running};
+  \node [state, accepting, right of=running] (done) {Done};
+  \path[->] (idle) edge node {start} (running)
+            (running) edge node {finish} (done);
+\end{tikzpicture}
+```
+````
+
 ### LaTeX Math
 
 For algorithms or formal descriptions:
@@ -187,11 +251,30 @@ This expands all root chunks and writes the source files. Verify by diffing agai
 
 ### WEAVE (generate PDF)
 
+Before weaving, check whether `mermaid-filter` is available:
+
+```bash
+which mermaid-filter
+```
+
+**If present**, use the full command:
+
 ```bash
 pandoc project.lit.md \
   -o project.pdf \
   --pdf-engine=xelatex \
   --filter mermaid-filter \
+  --toc \
+  --number-sections \
+  -V geometry:margin=1.5cm
+```
+
+**If absent**, omit `--filter mermaid-filter` and convert any ` ```mermaid ` blocks to ` ```{=latex} ` TikZ blocks first (see TikZ section above):
+
+```bash
+pandoc project.lit.md \
+  -o project.pdf \
+  --pdf-engine=xelatex \
   --toc \
   --number-sections \
   -V geometry:margin=1.5cm

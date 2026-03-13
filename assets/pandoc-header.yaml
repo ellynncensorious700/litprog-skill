@@ -24,4 +24,6 @@ header-includes:
   - \fancyhead[L]{\leftmark}
   - \fancyhead[R]{\thepage}
   - \fancyfoot{}
+  - \usepackage{tikz}
+  - \usetikzlibrary{shapes,arrows,automata,positioning}
 ---

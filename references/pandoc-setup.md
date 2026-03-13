@@ -90,3 +90,38 @@ Add `--resource-path=.` and increase the mermaid timeout:
 ```bash
 MERMAID_FILTER_TIMEOUT=60000 pandoc project.lit.md -o project.pdf ...
 ```
+
+## TikZ as Mermaid Alternative
+
+Use TikZ when `mermaid-filter` is unavailable or undesired (e.g., CI environments without Chrome, or minimal installs).
+
+### When to use it
+
+- `which mermaid-filter` returns nothing
+- You want diagrams that render without any Node.js tooling
+- You need precise control over diagram layout
+
+### Installation
+
+TikZ is included in standard TeX distributions. If LaTeX is already installed for PDF output, no extra installation is needed:
+
+```bash
+# Verify TikZ is available (should print the .sty path)
+kpsewhich tikz.sty
+```
+
+The `assets/pandoc-header.yaml` template already loads TikZ and the `shapes`, `arrows`, `automata`, and `positioning` libraries via `header-includes`.
+
+### Usage
+
+Write diagrams as pandoc raw LaTeX blocks so they pass through to xelatex:
+
+````markdown
+```{=latex}
+\begin{tikzpicture}[...]
+  ...
+\end{tikzpicture}
+```
+````
+
+These blocks are invisible in Markdown preview but render correctly in the PDF. See `SKILL.md` for TikZ translation patterns for common Mermaid diagram types.

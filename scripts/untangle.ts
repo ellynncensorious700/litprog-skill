@@ -189,8 +189,24 @@ function main() {
   if (doWeave) {
     console.log("Weaving PDF...");
     const pdfPath = litFilePath.replace(/\.lit\.md$/, ".pdf");
+
+    let hasMermaidFilter = false;
+    try {
+      execSync("which mermaid-filter", { stdio: "pipe" });
+      hasMermaidFilter = true;
+    } catch {
+      // not found
+    }
+
+    const filterArg = hasMermaidFilter ? "--filter mermaid-filter " : "";
+    if (!hasMermaidFilter) {
+      console.warn(
+        "mermaid-filter not found. Weaving without it — any mermaid fences will appear as code blocks. Convert them to TikZ {=latex} blocks for proper rendering.",
+      );
+    }
+
     execSync(
-      `pandoc ${litFilePath} -o ${pdfPath} --pdf-engine=xelatex --filter mermaid-filter --toc --number-sections`,
+      `pandoc ${litFilePath} -o ${pdfPath} --pdf-engine=xelatex ${filterArg}--toc --number-sections`,
       { stdio: "inherit", cwd: dirname(manifestPath) },
     );
     console.log(`Generated ${pdfPath}`);
